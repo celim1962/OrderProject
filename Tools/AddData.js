@@ -1,8 +1,6 @@
 const { GoogleSpreadsheet } = require('google-spreadsheet');
 
-
-module.exports = async (Type, credentialsPath = '../credential.json') => {
-    const result = [];
+module.exports = async (Type,payload, credentialsPath = '../credential.json') => {
     const creds = require(credentialsPath);
     const doc = new GoogleSpreadsheet(creds.docID);
 
@@ -23,11 +21,5 @@ module.exports = async (Type, credentialsPath = '../credential.json') => {
             break;
     }
 
-    const rows = await sheet.getRows();
-
-    for(row of rows){
-        result.push(row._rawData)
-    }
-
-    return result;
+    await sheet.addRow(payload);
 }
