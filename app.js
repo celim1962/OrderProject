@@ -4,7 +4,8 @@ const bodyParser = require('body-parser')
 
 const getData = require('./Tools/GetData.js')
 const AddData = require('./Tools/AddData.js')
-const Model = require('./Tools/Model.js') 
+const DeleteData = require('./Tools/DeleteData.js')
+const Model = require('./Tools/Model.js')
 
 const app = express()
 const port = 3000
@@ -32,6 +33,11 @@ app.get('/info/:type', async (req, res) => {
 //     await AddData(Model.typeItems,payload);
 //     res.send('finish')
 // })
+
+app.get('/delete', async (req, res) => {
+    await DeleteData(Model.typeItems, '紅茶')
+    res.send('delete success')
+})
 
 
 app.listen(port, () => {
