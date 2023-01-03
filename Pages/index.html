@@ -21,6 +21,22 @@
             user-select: none;
         }
 
+        /* width */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: rgb(65, 65, 65);
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #585858;
+        }
+
+
         h1,
         p,
         i {
@@ -36,7 +52,7 @@
         }
 
         section:nth-child(1) {
-            border: 1px solid gray;
+            /* border: 1px solid gray; */
 
             width: auto;
             height: 10vh;
@@ -90,7 +106,7 @@
         }
 
         .filter {
-            background-color: rgba(115, 107, 94, 0.3);
+            background-color: rgba(115, 107, 94, 0.4);
             border-radius: 10px;
             font-family: sans-serif;
             text-align: center;
@@ -194,27 +210,11 @@
 
     <section>
         <div class="filter">
-            <p>You can get anything you want</p>
+            <p>現在就訂購想要的任何東西吧!</p>
         </div>
     </section>
 
     <section id="content">
-
-        <!-- <div class="item">
-            <img src="https://media.istockphoto.com/id/1368229356/photo/glasses-of-iced-tea-flavored-with-blackberries-and-cream.webp?s=612x612&w=is&k=20&c=2cB1sfb3mPCrG_tZWm1NZTVKfqvwuNMveBY_pNyaH0o="
-                alt="">
-            <div>
-                <div class="item_description">
-                    <p>Milk Tea</p>
-                    <p>$25</p>
-                </div>
-                <div class="item_operate">
-                    <input type="button" value="Add To Cart">
-                </div>
-            </div>
-        </div> -->
-
-
     </section>
 
     <script>
@@ -227,7 +227,7 @@
             return data
         }
 
-        const getItmes = (infos) => {
+        const getItmes = async (infos) => {
             infos.map(info => {
                 console.log(info)
                 let tempDiv = document.createElement('div');

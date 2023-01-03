@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+fs = require('fs')
 const bodyParser = require('body-parser')
 
 const getData = require('./Tools/GetData.js')
@@ -27,6 +28,7 @@ app.get('/info/:type', async (req, res) => {
 
     res.json(data)
 })
+
 
 // app.get('/add/:type',async(req,res)=>{
 //     let payload = Model.itemsModel;
