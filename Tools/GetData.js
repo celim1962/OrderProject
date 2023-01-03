@@ -25,8 +25,14 @@ module.exports = async (Type, credentialsPath = '../credential.json') => {
 
     const rows = await sheet.getRows();
 
-    for(row of rows){
-        result.push(row._rawData)
+    for (row of rows) {
+        let tempObj = {}
+        
+        for(let i=0;i<row._sheet.headerValues.length;i++){
+            tempObj[row._sheet.headerValues[i]] = row._rawData[i]
+        }
+
+        result.push(tempObj)
     }
 
     return result;
