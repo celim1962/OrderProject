@@ -20,6 +20,7 @@ app.get('/', (req, res) => {
 })
 
 
+
 app.get('/info/:type', async (req, res) => {
     let type = req.params.type;
     let data = await getData(type)

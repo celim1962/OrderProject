@@ -9,9 +9,181 @@
 
     <title>Ordering Page</title>
 
-    <link rel="icon" href="../Assets/supermarket_cart_store_market_icon_180221.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="icon" href="https://cdn.icon-icons.com/icons2/2836/PNG/512/supermarket_cart_store_market_icon_180221.png"
+        type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            margin: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        h1,
+        p,
+        i {
+            color: #fff;
+        }
+
+        body {
+            background-color: #181a1b;
+            width: 98.7vw;
+            height: 100vh;
+
+            overflow: auto;
+        }
+
+        section:nth-child(1) {
+            border: 1px solid gray;
+
+            width: auto;
+            height: 10vh;
+        }
+
+        .title {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .title>h1 {
+            width: 95%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .title>i {
+            color: rgb(150, 150, 150);
+
+            width: 5%;
+            font-size: 1.8rem;
+
+            transition: .2s;
+
+            cursor: pointer;
+        }
+
+        .title>i:hover {
+            color: #fff;
+            transition: .2s;
+        }
+
+        .title>i:active {
+            width: 4.9%;
+            height: 50%;
+        }
+
+        section:nth-child(2) {
+            width: auto;
+            height: 40vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background-image: url("https://plus.unsplash.com/premium_photo-1661611426790-e96941bd387d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1031&q=80");
+            background-size: cover;
+        }
+
+        .filter {
+            background-color: rgba(115, 107, 94, 0.3);
+            border-radius: 10px;
+            font-family: sans-serif;
+            text-align: center;
+            line-height: 1;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+
+            width: 90%;
+            height: 75%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .filter>p {
+            font-size: 2em;
+        }
+
+        section:nth-child(3) {
+            width: 100%;
+        }
+
+        .item {
+            border: 1px solid rgb(138, 135, 135);
+
+            width: 31%;
+            height: 50vh;
+
+            margin-top: 2%;
+            margin-left: 1%;
+
+            border-radius: 5px;
+
+            display: inline-block;
+        }
+
+        .item>img {
+            width: 100%;
+            height: 50%;
+
+            border-radius: 5px;
+        }
+
+        .item>div {
+            width: auto;
+            height: 50%;
+
+            display: flex;
+            justify-content: space-around;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .item_description {
+            width: 90%;
+            height: 40%;
+
+            font-size: 1.5rem;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .item_operate {
+            width: 90%;
+            height: 30%;
+
+            display: flex;
+            justify-content: flex-end;
+
+
+        }
+
+        .item_operate>input {
+            background-color: rgb(150, 150, 150);
+            border: none;
+            border-radius: 5px;
+
+            transition: .2s;
+            cursor: pointer;
+        }
+
+        .item_operate>input:hover {
+            background-color: rgb(223, 223, 223);
+            transition: .2s;
+        }
+
+        .item_operate>input:active {
+            transform: scale(0.95);
+        }
+    </style>
 </head>
 
 <body>
@@ -28,8 +200,80 @@
 
     <section id="content">
 
+        <!-- <div class="item">
+            <img src="https://media.istockphoto.com/id/1368229356/photo/glasses-of-iced-tea-flavored-with-blackberries-and-cream.webp?s=612x612&w=is&k=20&c=2cB1sfb3mPCrG_tZWm1NZTVKfqvwuNMveBY_pNyaH0o="
+                alt="">
+            <div>
+                <div class="item_description">
+                    <p>Milk Tea</p>
+                    <p>$25</p>
+                </div>
+                <div class="item_operate">
+                    <input type="button" value="Add To Cart">
+                </div>
+            </div>
+        </div> -->
+
+
     </section>
 
+    <script>
+        const content = document.getElementById('content');
+        const getItemsUrl = 'http://localhost:3000/info/items';
+
+        const getData = async url => {
+            let res = await fetch(url);
+            let data = await res.json()
+            return data
+        }
+
+        const getItmes = (infos) => {
+            infos.map(info => {
+                console.log(info)
+                let tempDiv = document.createElement('div');
+                tempDiv.className = 'item';
+
+                let tempImg = document.createElement('img');
+                tempImg.src = info.pic_route;
+
+                let tempDivInfo = document.createElement('div');
+
+                let tempDivDescription = document.createElement('div');
+                tempDivDescription.className = 'item_description';
+
+                let tempPName = document.createElement('p');
+                tempPName.innerText = info.item;
+
+                let tempPPrice = document.createElement('p');
+                tempPPrice.innerText = `$${info.price}`;
+
+                let tempDivOperate = document.createElement('div');
+                tempDivOperate.className = 'item_operate';
+
+                let tempInput = document.createElement('input');
+                tempInput.value = 'Add To Cart';
+                tempInput.type = 'button'
+
+
+                tempDivDescription.appendChild(tempPName);
+                tempDivDescription.appendChild(tempPPrice);
+                tempDivInfo.appendChild(tempDivDescription);
+
+                tempDivOperate.appendChild(tempInput);
+
+                tempDivInfo.appendChild(tempDivOperate);
+
+                tempDiv.appendChild(tempImg);
+                tempDiv.appendChild(tempDivInfo);
+
+                content.appendChild(tempDiv);
+            })
+
+        }
+
+        getData(getItemsUrl).then(res => getItmes(res))
+
+    </script>
 </body>
 
 </html>
