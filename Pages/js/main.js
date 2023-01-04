@@ -1,5 +1,7 @@
 const ApiUrl = 'http://localhost:3000';
 
+const Home = document.getElementById('Home');
+
 const content = document.getElementById('content');
 const getItemsUrl = `${ApiUrl}/info/items`;
 
@@ -9,10 +11,8 @@ const getData = async url => {
     return data
 }
 
-const getItmes = async (infos) => {
-
-
-    infos.map(async info => {
+const generateItmes = infos => {
+    infos.map(info => {
         let tempDiv = document.createElement('div');
         tempDiv.className = 'item';
 
@@ -34,7 +34,7 @@ const getItmes = async (infos) => {
         tempDivOperate.className = 'item_operate';
 
         let tempInput = document.createElement('input');
-        tempInput.value = 'Add To Cart';
+        tempInput.value = '加入購物車';
         tempInput.type = 'button'
 
 
@@ -54,5 +54,4 @@ const getItmes = async (infos) => {
 
 }
 
-getData(getItemsUrl).then(res => getItmes(res))
-
+getData(getItemsUrl).then(res => generateItmes(res))
