@@ -15,6 +15,9 @@ const port = 3000
 
 app.use(bodyParser.json())
 app.use(cors())
+app.use(express.static('Assets'))
+app.use(express.static('Pages/css'))
+app.use(express.static('Pages/js'))
 
 app.get('/', (req, res) => {
     res.sendFile(`${__dirname}/Pages/index.html`)
