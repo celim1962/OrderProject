@@ -54,4 +54,6 @@ const generateItmes = infos => {
 
 }
 
+let home = document.getElementById('Home');
+home.style.backgroundImage = `url('${ApiUrl}/HomePage.jpg')`
 getData(getItemsUrl).then(res => generateItmes(res))
