@@ -54,15 +54,24 @@ const generateItmes = infos => {
             let currentItems = localStorage.getItem('cartItems');
             let target = {
                 name: e.target.dataset.name,
-                price: e.target.dataset.price
+                price: e.target.dataset.price,
+                count:0
             };
 
             if (!currentItems) {
                 localStorage.setItem('cartItems', JSON.stringify([target]))
             } else {
                 currentItems = JSON.parse(currentItems);
-                currentItems.push(target);
-                localStorage.setItem('cartItems', JSON.stringify(currentItems));
+
+                if (currentItems.filter(item => item.name === target.name).length === 0) {
+                    currentItems.push(target);
+                    localStorage.setItem('cartItems', JSON.stringify(currentItems));
+                }else{
+                    let obj = currentItems.filter(item => item.name === target.name)[0]
+                    obj.count += 1
+                    localStorage.setItem('cartItems', JSON.stringify(currentItems));
+                }
+
             }
         })
 
