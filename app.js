@@ -13,9 +13,10 @@ app.use(cors())
 app.use(express.static('Assets'))
 app.use(express.static('Pages/css'))
 app.use(express.static('Pages/js'))
+app.use(express.static('Pages/'))
 
 app.get('/', (req, res) => {
-    res.sendFile(`${__dirname}/Pages/index.html`)
+    res.sendFile(`./Pages/index.html`)
 })
 
 app.get('/info/:type', (req, res) => {

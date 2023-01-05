@@ -2,6 +2,7 @@ node_modules
 
 credential.json
 
-Assets
+package-lock.json
 
 ngrok-v3-stable-windows-amd64
+
