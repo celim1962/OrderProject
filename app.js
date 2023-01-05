@@ -44,7 +44,7 @@ app.get('/notify', (req, res) => {
         from: myEmail,
         to: 'hungyeelin@gmail.com',
         subject: 'TestOrderProject',
-        text: 'hahahahahaha'
+        text: 'This message prove the gmail sending function is working'
     };
 
     transporter.sendMail(mailOptions, (error, info)=> {
