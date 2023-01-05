@@ -32,30 +32,29 @@ app.get('/info/:type', (req, res) => {
 
 app.get('/notify', (req, res) => {
     const myEmail = 'hungyeelin@gmail.com';
-    console.log(process.env.pass)
 
-    // const transporter = nodemailer.createTransport({
-    //     service: 'gmail',
-    //     auth: {
-    //         user: myEmail,
-    //         pass: passs
-    //     }
-    // });
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: myEmail,
+            pass: process.env.pass
+        }
+    });
 
-    // const mailOptions = {
-    //     from: myEmail,
-    //     to: 'hungyeelin@gmail.com',
-    //     subject: 'TestOrderProject',
-    //     text: 'This message prove the gmail sending function is working'
-    // };
+    const mailOptions = {
+        from: myEmail,
+        to: 'hungyeelin@gmail.com',
+        subject: 'TestOrderProject',
+        text: 'This message prove the gmail sending function is working'
+    };
 
-    // transporter.sendMail(mailOptions, (error, info)=> {
-    //     if (error) {
-    //         console.log(error);
-    //     }else{
-    //         console.log(info)
-    //     }
-    // });
+    transporter.sendMail(mailOptions, (error, info)=> {
+        if (error) {
+            console.log(error);
+        }else{
+            console.log(info)
+        }
+    });
 
     res.json('finish it!')
 })
