@@ -1,4 +1,4 @@
-const ApiUrl = 'http://localhost:3000';
+const ApiUrl = '.';//'http://localhost:3000';
 
 const home = document.getElementById('Home');
 home.style.backgroundImage = `url('${ApiUrl}/HomePage.jpg')`;
