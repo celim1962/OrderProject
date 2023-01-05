@@ -4,7 +4,6 @@ const fs = require('fs')
 const bodyParser = require('body-parser')
 const reader = require('xlsx')
 const nodemailer = require('nodemailer');
-require('secrets')
 
 
 const app = express()
@@ -16,6 +15,7 @@ app.use(express.static('Assets'))
 app.use(express.static('Pages/css'))
 app.use(express.static('Pages/js'))
 app.use(express.static('Pages/'))
+require('secrets')
 
 app.get('/', (req, res) => {
     res.sendFile(`./Pages/index.html`)
@@ -31,19 +31,19 @@ app.get('/info/:type', (req, res) => {
 })
 
 app.get('/notify', (req, res) => {
-    const a_________________________sender = 'hungyeelin@gmail.com';
+    let sender = 'hungyeelin@gmail.com';
 
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: sender,
+            user: process.env.sender||sender,
             pass: process.env.pass
         }
     });
 
     const mailOptions = {
-        from: sender,
-        to: sender,
+        from: process.env.sender||sender,
+        to: process.env.receiver||sender,
         subject: 'TestOrderProject',
         text: 'This message prove the gmail sending function is working'
     };
