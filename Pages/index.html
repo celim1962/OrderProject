@@ -35,7 +35,7 @@
 <body>
     <section class="title">
         <h1>Order Project</h1>
-        <i class="fa-solid fa-cart-plus" id="btnCart" data-toggle="modal" data-target="#shoppintCart"></i>
+        <i class="fa-solid fa-cart-plus" id="btnCart" data-toggle="modal" data-target="#shoppintCart" onclick="loadCartItems()"></i>
     </section>
 
     <section id="Home">
@@ -57,12 +57,12 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body" id="cartDetails">
+                <div class="modal-body" id="cartDetails" style="display: flex;flex-direction: column;justify-items: center;align-items: center;">
                     
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                    <button type="button" id="btnOrder" class="btn btn-success" data-dismiss="modal">我要訂購</button>
                 </div>
             </div>
         </div>

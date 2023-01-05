@@ -7,16 +7,58 @@ const content = document.getElementById('content');
 const getItemsUrl = `${ApiUrl}/info/items`;
 
 const btnCart = document.getElementById('btnCart');
+const btnOrder = document.getElementById('btnOrder');
 const cartDetail = document.getElementById('cartDetails');
 
-btnCart.addEventListener('click', () => {
+const operate = (id, name, action) => {
+    let cartList = JSON.parse(localStorage.getItem('cartItems'))
+    let target = cartList.filter(item => item.name === name)[0]
+
+    if (action === 0) {
+        if (target.count === 1) {
+            cartList = cartList.filter(item => item.name !== name)
+        }
+        else if (target.count > 1) {
+            target.count -= 1
+        }
+    } else {
+        target.count += 1
+    }
+
+
+
+    localStorage.setItem('cartItems', JSON.stringify(cartList))
+    loadCartItems()
+}
+
+const loadCartItems = () => {
+    let count = 0;
     let cartObjects = JSON.parse(localStorage.getItem('cartItems'));
-    cartObjects.map(item => {
-        cartDetail.innerHTML += `
-        <h4>${item.name}*${item.count}</h4> `
-    })
-    console.log(cartObjects)
-})
+
+    if (cartObjects.length === 0) {
+        cartDetail.innerHTML = '<h2>購物車是空的!</h2>';
+        btnOrder.hidden = true;
+    } else {
+        btnOrder.hidden = false;
+        cartDetail.innerHTML = '';
+
+        cartObjects.map(item => {
+            cartDetail.innerHTML += `
+            <div class='cartItems'>
+                <div>
+                    <h4>${item.name} x<h4>
+                    <div id="cartItemCount${count}">${item.count}</div>
+                </div>
+                <div>
+                    <i class="fa-solid fa-circle-minus" onClick="operate(${count},'${item.name}',0)"></i>
+                    <i class="fa-solid fa-circle-plus" onClick="operate(${count},'${item.name}',1)"></i>
+                </div>
+            </div> `;
+
+            count++;
+        })
+    }
+}
 
 const getData = async url => {
     let res = await fetch(url);
@@ -58,7 +100,7 @@ const generateItmes = infos => {
             let target = {
                 name: e.target.dataset.name,
                 price: e.target.dataset.price,
-                count: 0
+                count: 1
             };
 
             if (!currentItems) {

@@ -21,8 +21,7 @@
 
 
 h1,
-p,
-i {
+p {
     color: #fff;
 }
 
@@ -183,3 +182,41 @@ section:nth-child(3) {
 .item_operate>input:active {
     transform: scale(0.95);
 }
+
+
+.cartItems{
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+}
+
+.cartItems>div:nth-child(1){
+    display: flex;
+}
+
+.cartItems>div:nth-child(2){
+    width: 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fa-solid:hover{
+    cursor: pointer;
+    transform: scale(1.2);
+}
+
+.fa-solid:active{
+    cursor: pointer;
+    transform: scale(0.97);
+}
+
+
+.fa-circle-minus{
+    color: red;
+}
+
+.fa-circle-plus{
+    color:green;
+}
+
