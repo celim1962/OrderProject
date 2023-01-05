@@ -31,12 +31,12 @@ app.get('/info/:type', (req, res) => {
 
 app.get('/notify', (req, res) => {
     const myEmail = 'hungyeelin@gmail.com';
-
+    const passs = 'rmhaaa  qw a kda  kgnr a  fhd a u g'.split(' ').join().replaceAll(',','').replaceAll('a','')
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
             user: myEmail,
-            pass: 'rmhqwkdkgnrfhdug'
+            pass: passs
         }
     });
 
