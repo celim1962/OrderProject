@@ -33,6 +33,7 @@ const operate = (id, name, action) => {
 
 const loadCartItems = () => {
     let count = 0;
+    let totalPrice = 0;
     let cartObjects = JSON.parse(localStorage.getItem('cartItems'));
 
     if (cartObjects.length === 0) {
@@ -54,9 +55,16 @@ const loadCartItems = () => {
                     <i class="fa-solid fa-circle-plus" onClick="operate(${count},'${item.name}',1)"></i>
                 </div>
             </div> `;
-
+            totalPrice += parseInt(item.price) * parseInt(item.count)
             count++;
         })
+
+        cartDetail.innerHTML += `
+        <div class='cartItems'>
+            <div></div>
+            <h4>Price:$${totalPrice}</h4>
+        </div>
+        `;
     }
 }
 
