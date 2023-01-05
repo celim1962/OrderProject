@@ -3,8 +3,7 @@ module.exports = {
     typeOrders: 'orders',
     itemsModel: {
         item: String,
-        price: Number,
-        in_stock: Number
+        price: Number
     },
     ordersModel: {
         name: String,

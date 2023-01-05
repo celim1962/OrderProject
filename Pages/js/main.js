@@ -1,9 +1,19 @@
 const ApiUrl = 'http://localhost:3000';
 
-const Home = document.getElementById('Home');
+const home = document.getElementById('Home');
+home.style.backgroundImage = `url('${ApiUrl}/HomePage.jpg')`;
 
 const content = document.getElementById('content');
 const getItemsUrl = `${ApiUrl}/info/items`;
+
+const btnCart = document.getElementById('btnCart');
+const cartDetail = document.getElementById('cartDetails');
+
+btnCart.addEventListener('click', () => {
+    cartDetail.innerText = '987';
+    let cartObjects = JSON.parse(localStorage.getItem('cartItems'));
+    console.log(cartObjects)
+})
 
 const getData = async url => {
     let res = await fetch(url);
@@ -35,7 +45,26 @@ const generateItmes = infos => {
 
         let tempInput = document.createElement('input');
         tempInput.value = '加入購物車';
-        tempInput.type = 'button'
+        tempInput.style.color = 'black';
+        tempInput.type = 'button';
+        tempInput.dataset.name = info.item;
+        tempInput.dataset.price = info.price;
+
+        tempInput.addEventListener('click', e => {
+            let currentItems = localStorage.getItem('cartItems');
+            let target = {
+                name: e.target.dataset.name,
+                price: e.target.dataset.price
+            };
+
+            if (!currentItems) {
+                localStorage.setItem('cartItems', JSON.stringify([target]))
+            } else {
+                currentItems = JSON.parse(currentItems);
+                currentItems.push(target);
+                localStorage.setItem('cartItems', JSON.stringify(currentItems));
+            }
+        })
 
 
         tempDivDescription.appendChild(tempPName);
@@ -54,6 +83,5 @@ const generateItmes = infos => {
 
 }
 
-let home = document.getElementById('Home');
-home.style.backgroundImage = `url('${ApiUrl}/HomePage.jpg')`
+
 getData(getItemsUrl).then(res => generateItmes(res))

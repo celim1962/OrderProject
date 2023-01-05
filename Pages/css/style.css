@@ -159,7 +159,7 @@ section:nth-child(3) {
     height: 30%;
 
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
 
 
 }
@@ -168,6 +168,8 @@ section:nth-child(3) {
     background-color: rgb(150, 150, 150);
     border: none;
     border-radius: 5px;
+
+    width: 100%;
 
     transition: .2s;
     cursor: pointer;
