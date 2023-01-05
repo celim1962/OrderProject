@@ -31,19 +31,19 @@ app.get('/info/:type', (req, res) => {
 })
 
 app.get('/notify', (req, res) => {
-    const myEmail = 'hungyeelin@gmail.com';
+    const sender = 'hungyeelin@gmail.com';
 
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: myEmail,
+            user: sender,
             pass: process.env.pass
         }
     });
 
     const mailOptions = {
-        from: myEmail,
-        to: 'hungyeelin@gmail.com',
+        from: sender,
+        to: sender,
         subject: 'TestOrderProject',
         text: 'This message prove the gmail sending function is working'
     };
