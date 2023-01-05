@@ -31,7 +31,7 @@ app.get('/info/:type', (req, res) => {
 })
 
 app.get('/notify', (req, res) => {
-    const sender = 'hungyeelin@gmail.com';
+    const a_________________________sender = 'hungyeelin@gmail.com';
 
     const transporter = nodemailer.createTransport({
         service: 'gmail',
