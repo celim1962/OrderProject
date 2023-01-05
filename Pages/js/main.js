@@ -10,8 +10,11 @@ const btnCart = document.getElementById('btnCart');
 const cartDetail = document.getElementById('cartDetails');
 
 btnCart.addEventListener('click', () => {
-    cartDetail.innerText = '987';
     let cartObjects = JSON.parse(localStorage.getItem('cartItems'));
+    cartObjects.map(item => {
+        cartDetail.innerHTML += `
+        <h4>${item.name}*${item.count}</h4> `
+    })
     console.log(cartObjects)
 })
 
@@ -55,7 +58,7 @@ const generateItmes = infos => {
             let target = {
                 name: e.target.dataset.name,
                 price: e.target.dataset.price,
-                count:0
+                count: 0
             };
 
             if (!currentItems) {
@@ -66,7 +69,7 @@ const generateItmes = infos => {
                 if (currentItems.filter(item => item.name === target.name).length === 0) {
                     currentItems.push(target);
                     localStorage.setItem('cartItems', JSON.stringify(currentItems));
-                }else{
+                } else {
                     let obj = currentItems.filter(item => item.name === target.name)[0]
                     obj.count += 1
                     localStorage.setItem('cartItems', JSON.stringify(currentItems));
