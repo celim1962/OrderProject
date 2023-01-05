@@ -4,6 +4,7 @@ const fs = require('fs')
 const bodyParser = require('body-parser')
 const reader = require('xlsx')
 const nodemailer = require('nodemailer');
+require('secrets')
 
 
 const app = express()
@@ -31,29 +32,30 @@ app.get('/info/:type', (req, res) => {
 
 app.get('/notify', (req, res) => {
     const myEmail = 'hungyeelin@gmail.com';
-    const passs = 'rmhaaa  qw a kda  kgnr a  fhd a u g'.split(' ').join().replaceAll(',','').replaceAll('a','')
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: myEmail,
-            pass: passs
-        }
-    });
+    console.log(process.env.pass)
 
-    const mailOptions = {
-        from: myEmail,
-        to: 'hungyeelin@gmail.com',
-        subject: 'TestOrderProject',
-        text: 'This message prove the gmail sending function is working'
-    };
+    // const transporter = nodemailer.createTransport({
+    //     service: 'gmail',
+    //     auth: {
+    //         user: myEmail,
+    //         pass: passs
+    //     }
+    // });
 
-    transporter.sendMail(mailOptions, (error, info)=> {
-        if (error) {
-            console.log(error);
-        }else{
-            console.log(info)
-        }
-    });
+    // const mailOptions = {
+    //     from: myEmail,
+    //     to: 'hungyeelin@gmail.com',
+    //     subject: 'TestOrderProject',
+    //     text: 'This message prove the gmail sending function is working'
+    // };
+
+    // transporter.sendMail(mailOptions, (error, info)=> {
+    //     if (error) {
+    //         console.log(error);
+    //     }else{
+    //         console.log(info)
+    //     }
+    // });
 
     res.json('finish it!')
 })
