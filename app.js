@@ -30,33 +30,45 @@ app.get('/info/:type', (req, res) => {
     res.json(data)
 })
 
-app.get('/notify', (req, res) => {
+app.post('/notify', (req, res) => {
+    let body = req.body;
+    let content = '親愛的貴賓您好\n您的訂購資訊如下:\n------------------\n';
+    let total = 0;
+
+    body.map(item => {
+        content += `${item.name} x${item.count} =  $${item.price * item.count}\n`;
+        total += item.price * item.count
+    })
+
+    content += `------------------\n總計金額為 $${total}\n\n感謝您的訂購，稍後門市人員會致電聯絡付款事項\n多謝!\n\nOrderProject 團隊`;
+
+
     let sender = 'hungyeelin@gmail.com';
 
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: process.env.sender||sender,
+            user: process.env.sender || sender,
             pass: process.env.pass
         }
     });
 
     const mailOptions = {
-        from: process.env.sender||sender,
-        to: process.env.receiver||sender,
+        from: process.env.sender || sender,
+        to: 'hungyeelin@gmail.com',
         subject: 'TestOrderProject',
-        text: 'This message prove the gmail sending function is working'
+        text: content
     };
 
-    transporter.sendMail(mailOptions, (error, info)=> {
+    transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             console.log(error);
-        }else{
+        } else {
             console.log(info)
         }
     });
 
-    res.json('finish it!')
+    return res.json(content)
 })
 
 app.listen(port, () => {

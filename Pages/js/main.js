@@ -65,6 +65,7 @@ const loadCartItems = () => {
             <h4>Price:$${totalPrice}</h4>
         </div>
         `;
+
     }
 }
 
@@ -144,6 +145,17 @@ const generateItmes = infos => {
     })
 
 }
+
+btnOrder.addEventListener('click', async () => {
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    await fetch('./notify', {
+        method: 'POST',
+        headers: myHeaders,
+        body: JSON.stringify(JSON.parse(localStorage.getItem('cartItems')))
+    })
+})
 
 
 getData(getItemsUrl).then(res => generateItmes(res))
