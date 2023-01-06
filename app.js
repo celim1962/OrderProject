@@ -55,7 +55,7 @@ app.post('/notify', (req, res) => {
 
     const mailOptions = {
         from: process.env.sender || sender,
-        to: 'hungyeelin@gmail.com',
+        to: 'aba9792@gmail.com',
         subject: 'TestOrderProject',
         text: content
     };
