@@ -59,11 +59,13 @@ const loadCartItems = () => {
             count++;
         })
 
-        cartDetail.innerHTML += `
+        cartDetail.innerHTML += `<br/>
         <div class='cartItems'>
             <div></div>
-            <h4>Price:$${totalPrice}</h4>
+            <h4>小計:$${totalPrice}</h4>
         </div>
+
+
         `;
 
     }
@@ -150,10 +152,18 @@ btnOrder.addEventListener('click', async () => {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
+    let payload = {
+        data:JSON.parse(localStorage.getItem('cartItems')),
+        keyinfo:{
+            email:document.getElementById('receiverEmail').value,
+            notes:document.getElementById('notes').value
+        }
+    } 
+    
     await fetch('./notify', {
         method: 'POST',
         headers: myHeaders,
-        body: JSON.stringify(JSON.parse(localStorage.getItem('cartItems')))
+        body: JSON.stringify(payload)
     })
 })
 

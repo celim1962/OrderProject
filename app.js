@@ -33,13 +33,14 @@ app.get('/info/:type', (req, res) => {
 app.post('/notify', (req, res) => {
     let body = req.body;
     let content = '親愛的貴賓您好\n您的訂購資訊如下:\n------------------\n';
+
     let total = 0;
 
-    body.map(item => {
+    body.data.map(item => {
         content += `${item.name} x${item.count} =  $${item.price * item.count}\n`;
         total += item.price * item.count
     })
-
+    content+=`\n\n備註: ${body.keyinfo.notes}\n`;
     content += `------------------\n總計金額為 $${total}\n\n感謝您的訂購，稍後門市人員會致電聯絡付款事項\n多謝!\n\nOrderProject 團隊`;
 
 
@@ -55,8 +56,8 @@ app.post('/notify', (req, res) => {
 
     const mailOptions = {
         from: process.env.sender || sender,
-        to: 'aba9792@gmail.com',
-        subject: 'TestOrderProject',
+        to: body.keyinfo.email,
+        subject: 'OrderProject訂購測試信件(此為系統信件請勿回復)',
         text: content
     };
 
