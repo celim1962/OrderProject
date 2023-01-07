@@ -9,6 +9,8 @@ const getItemsUrl = `${ApiUrl}/info/items`;
 const btnCart = document.getElementById('btnCart');
 const btnOrder = document.getElementById('btnOrder');
 const cartDetail = document.getElementById('cartDetails');
+const footer = document.getElementsByClassName('modal-footer')
+const cartNotify = document.getElementById('cartNotify')
 
 const operate = (id, name, action) => {
     let cartList = JSON.parse(localStorage.getItem('cartItems'))
@@ -36,11 +38,14 @@ const loadCartItems = () => {
     let totalPrice = 0;
     let cartObjects = JSON.parse(localStorage.getItem('cartItems'));
 
-    if (cartObjects.length === 0) {
+    if (!cartObjects || cartObjects.length === 0) {
         cartDetail.innerHTML = '<h2>購物車是空的!</h2>';
-        btnOrder.hidden = true;
+        Array.from(footer).map(item => item.hidden = true)
+        cartNotify.hidden = true;
     } else {
-        btnOrder.hidden = false;
+        cartNotify.hidden = false;
+
+        Array.from(footer).map(item => item.hidden = false);
         cartDetail.innerHTML = '';
 
         cartObjects.map(item => {
@@ -107,6 +112,8 @@ const generateItmes = infos => {
         tempInput.dataset.price = info.price;
 
         tempInput.addEventListener('click', e => {
+            cartNotify.hidden = false;
+            
             let currentItems = localStorage.getItem('cartItems');
             let target = {
                 name: e.target.dataset.name,
@@ -149,22 +156,64 @@ const generateItmes = infos => {
 }
 
 btnOrder.addEventListener('click', async () => {
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
 
-    let payload = {
-        data:JSON.parse(localStorage.getItem('cartItems')),
-        keyinfo:{
-            email:document.getElementById('receiverEmail').value,
-            notes:document.getElementById('notes').value
+    let btnClosed = document.getElementById('btnClosed');
+
+    let receiverName = document.getElementById('receiverName').value;
+    let receiverEmail = document.getElementById('receiverEmail').value;
+    let receiverPhone = document.getElementById('receiverPhone').value;
+    let notes = document.getElementById('notes').value;
+
+    let receiverNameErrorMsg = document.getElementById('nameErrorMsg');
+    let receiverEmailErrorMsg = document.getElementById('emailErrorMsg');
+    let receiverPhoneErrorMsg = document.getElementById('phoneErrorMsg');
+
+
+    if (!receiverName) {
+        receiverNameErrorMsg.innerText = '未填寫名稱';
+    }
+    else if (!receiverEmail || /[^0-9a-zA-Z.]+/.test(receiverEmail)) {
+        receiverNameErrorMsg.innerText = '';
+        receiverEmailErrorMsg.innerText = '未填寫Email或是Email格式錯誤(請填寫email "@" 符號前面的id)';
+    } else if (!receiverPhoneErrorMsg || !/^\d{9,10}$/.test(receiverPhone)) {
+        receiverEmailErrorMsg.innerText = '';
+        receiverPhoneErrorMsg.innerText = '未填寫電話或是電話位數錯誤(家用電話9位;手機10位)';
+    } else {
+        receiverPhoneErrorMsg.innerText = '';
+
+        let myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        let payload = {
+            data: JSON.parse(localStorage.getItem('cartItems')),
+            keyinfo: {
+                name: receiverName,
+                email: `${receiverEmail}@gmail.com`,
+                phone: receiverPhone,
+                notes: notes
+            }
         }
-    } 
-    
-    await fetch('./notify', {
-        method: 'POST',
-        headers: myHeaders,
-        body: JSON.stringify(payload)
-    })
+
+        let res = await fetch('./notify', {
+            method: 'POST',
+            headers: myHeaders,
+            body: JSON.stringify(payload)
+        });
+
+        res = await res.json();
+        console.log(res)
+        if (!res) {
+
+            alert('Email寄送失敗 請嘗試輸入其他Email')
+        } else {
+            localStorage.setItem('cartItems', JSON.stringify([]));
+
+            btnClosed.click()
+        }
+
+
+    }
+
 })
 
 

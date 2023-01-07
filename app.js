@@ -31,8 +31,11 @@ app.get('/info/:type', (req, res) => {
 })
 
 app.post('/notify', (req, res) => {
+    let result = true;
+
     let body = req.body;
-    let content = '親愛的貴賓您好\n您的訂購資訊如下:\n------------------\n';
+    let content = `親愛的貴賓 ${body.keyinfo.name} 先生/小姐 您好\n您的訂購資訊如下:
+    \n------------------\n`;
 
     let total = 0;
 
@@ -40,7 +43,9 @@ app.post('/notify', (req, res) => {
         content += `${item.name} x${item.count} =  $${item.price * item.count}\n`;
         total += item.price * item.count
     })
-    content+=`\n\n備註: ${body.keyinfo.notes}\n`;
+
+    content += `------------------\n\n連絡電話: ${body.keyinfo.phone}\n`;
+    content += `備註: ${body.keyinfo.notes}\n`;
     content += `------------------\n總計金額為 $${total}\n\n感謝您的訂購，稍後門市人員會致電聯絡付款事項\n多謝!\n\nOrderProject 團隊`;
 
 
@@ -61,15 +66,18 @@ app.post('/notify', (req, res) => {
         text: content
     };
 
+
+
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-            console.log(error);
+            return res.send(false)
         } else {
-            console.log(info)
+            return res.json(info)
         }
     });
 
-    return res.json(content)
+
+
 })
 
 app.listen(port, () => {
