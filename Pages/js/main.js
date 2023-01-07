@@ -207,8 +207,10 @@ btnOrder.addEventListener('click', async () => {
             alert('Email寄送失敗 請嘗試輸入其他Email')
         } else {
             localStorage.setItem('cartItems', JSON.stringify([]));
-
+            cartNotify.hidden = true;
             btnClosed.click()
+
+
         }
 
 
