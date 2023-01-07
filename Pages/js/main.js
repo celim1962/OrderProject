@@ -56,8 +56,8 @@ const loadCartItems = () => {
                     <div id="cartItemCount${count}">${item.count}</div>
                 </div>
                 <div>
-                    <i class="fa-solid fa-circle-minus" onClick="operate(${count},'${item.name}',0)"></i>
-                    <i class="fa-solid fa-circle-plus" onClick="operate(${count},'${item.name}',1)"></i>
+                    <i class="fa-solid fa-circle-minus" style="margin-right:5px;" onClick="operate(${count},'${item.name}',0)"></i>
+                    <i class="fa-solid fa-circle-plus" style="margin-left:5px;" onClick="operate(${count},'${item.name}',1)"></i>
                 </div>
             </div> `;
             totalPrice += parseInt(item.price) * parseInt(item.count)
@@ -113,7 +113,7 @@ const generateItmes = infos => {
 
         tempInput.addEventListener('click', e => {
             cartNotify.hidden = false;
-            
+
             let currentItems = localStorage.getItem('cartItems');
             let target = {
                 name: e.target.dataset.name,
