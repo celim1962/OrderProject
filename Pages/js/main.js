@@ -218,5 +218,5 @@ btnOrder.addEventListener('click', async () => {
 
 })
 
-
+cartNotify.hidden = true;
 getData(getItemsUrl).then(res => generateItmes(res))
