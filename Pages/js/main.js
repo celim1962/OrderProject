@@ -1,7 +1,7 @@
 const ApiUrl = '.';//'http://localhost:3000';
 
 const home = document.getElementById('Home');
-home.style.backgroundImage = `url('${ApiUrl}/HomePage.jpg')`;
+home.style.backgroundImage = `url('https://lh6.googleusercontent.com/wwnnrBnVHElqtUktAFFQRzdBFLhEIZI_TLrI845qdAVhIGpYi-eaYkh_WsA1vz23PxAQ61ENtauTdk8IjAPAmB5bCBbM9ZkpcwAcy7CLolgvMUhGwv1A6d2YFVMLQEk1ng=w740')`;
 
 const content = document.getElementById('content');
 const getItemsUrl = `${ApiUrl}/info/items`;

@@ -49,7 +49,7 @@ app.post('/notify', (req, res) => {
     content += `------------------\n總計金額為 $${total}\n\n感謝您的訂購，稍後門市人員會致電聯絡付款事項\n多謝!\n\nOrderProject 團隊`;
 
 
-    let sender = 'hungyeelin@gmail.com';
+    let sender = 'amazingfood7777@gmail.com';//'hungyeelin@gmail.com';
 
     const transporter = nodemailer.createTransport({
         service: 'gmail',
