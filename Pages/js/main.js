@@ -2,6 +2,11 @@ const ApiUrl = '.';//'http://localhost:3000';
 
 const home = document.getElementById('Home');
 home.style.backgroundImage = `url('https://lh6.googleusercontent.com/wwnnrBnVHElqtUktAFFQRzdBFLhEIZI_TLrI845qdAVhIGpYi-eaYkh_WsA1vz23PxAQ61ENtauTdk8IjAPAmB5bCBbM9ZkpcwAcy7CLolgvMUhGwv1A6d2YFVMLQEk1ng=w740')`;
+home.style.height = '40vh';
+home.style.backgroundPosition = 'center';
+home.style.backgroundSize = 'cover';
+
+
 
 const content = document.getElementById('content');
 const getItemsUrl = `${ApiUrl}/info/items`;
@@ -52,12 +57,12 @@ const loadCartItems = () => {
             cartDetail.innerHTML += `
             <div class='cartItems'>
                 <div>
-                    <h4>${item.name} x<h4>
-                    <div id="cartItemCount${count}">${item.count}</div>
+                    <h4>${item.name}<h4>
+                    <div id="cartItemCount${count}">x${item.count}</div>
                 </div>
                 <div>
-                    <i class="fa-solid fa-circle-minus" style="margin-right:5px;" onClick="operate(${count},'${item.name}',0)"></i>
-                    <i class="fa-solid fa-circle-plus" style="margin-left:5px;" onClick="operate(${count},'${item.name}',1)"></i>
+                    <i class="fa-solid fa-circle-minus" style="margin-right:2px;" onClick="operate(${count},'${item.name}',0)"></i>
+                    <i class="fa-solid fa-circle-plus" style="margin-left:2px;" onClick="operate(${count},'${item.name}',1)"></i>
                 </div>
             </div> `;
             totalPrice += parseInt(item.price) * parseInt(item.count)
@@ -101,6 +106,12 @@ const generateItmes = infos => {
         let tempPPrice = document.createElement('p');
         tempPPrice.innerText = `$${info.price}`;
 
+        let tempDivDetail = document.createElement('div');
+        tempDivDetail.className = 'item_detail';
+
+        let tempPDetail = document.createElement('p');
+        tempPDetail.innerText = `${info.item_detail}`;
+
         let tempDivOperate = document.createElement('div');
         tempDivOperate.className = 'item_operate';
 
@@ -112,14 +123,14 @@ const generateItmes = infos => {
         tempInput.dataset.price = info.price;
 
         tempInput.addEventListener('click', e => {
-            cartNotify.hidden = false;
-
             let currentItems = localStorage.getItem('cartItems');
             let target = {
                 name: e.target.dataset.name,
                 price: e.target.dataset.price,
                 count: 1
             };
+
+            cartNotify.hidden = false;
 
             if (!currentItems) {
                 localStorage.setItem('cartItems', JSON.stringify([target]))
@@ -134,7 +145,6 @@ const generateItmes = infos => {
                     obj.count += 1
                     localStorage.setItem('cartItems', JSON.stringify(currentItems));
                 }
-
             }
         })
 
@@ -142,6 +152,9 @@ const generateItmes = infos => {
         tempDivDescription.appendChild(tempPName);
         tempDivDescription.appendChild(tempPPrice);
         tempDivInfo.appendChild(tempDivDescription);
+
+        tempDivDetail.appendChild(tempPDetail);
+        tempDivInfo.appendChild(tempDivDetail);
 
         tempDivOperate.appendChild(tempInput);
 
@@ -219,4 +232,26 @@ btnOrder.addEventListener('click', async () => {
 })
 
 cartNotify.hidden = true;
-getData(getItemsUrl).then(res => generateItmes(res))
+
+getData(getItemsUrl)
+    .then(res => generateItmes(res))
+    .then(() => {
+        if (screen.width < 800) {
+            let title = document.getElementsByClassName('title')[0];
+            title.children[0].style.fontSize = '20px';
+
+            let item = document.getElementsByClassName('item');
+            Array.from(item).map(el => el.style.width = '100%')
+
+        } else {
+            let title = document.getElementsByClassName('title')[0];
+            title.children[0].style.fontSize = '2.5rem';
+
+            let item = document.getElementsByClassName('item');
+            Array.from(item).map(el => el.style.width = '31%');
+
+        }
+    })
+
+
+
