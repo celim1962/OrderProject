@@ -17,7 +17,7 @@ const cartDetail = document.getElementById('cartDetails');
 const footer = document.getElementsByClassName('modal-footer')
 const cartNotify = document.getElementById('cartNotify')
 
-const operate = (id, name, action) => {
+const operate = (id, name, action) => { // 購物車內增加或是減少指定購物品項的數量事件
     let cartList = JSON.parse(localStorage.getItem('cartItems'))
     let target = cartList.filter(item => item.name === name)[0]
 
@@ -34,11 +34,12 @@ const operate = (id, name, action) => {
 
 
 
-    localStorage.setItem('cartItems', JSON.stringify(cartList))
-    loadCartItems()
+    localStorage.setItem('cartItems', JSON.stringify(cartList));
+    loadCartItems();
+    updateShoppingItemNotify();
 }
 
-const loadCartItems = () => {
+const loadCartItems = () => { // 從LocalStorage取得購物車清單
     let count = 0;
     let totalPrice = 0;
     let cartObjects = JSON.parse(localStorage.getItem('cartItems'));
@@ -81,16 +82,46 @@ const loadCartItems = () => {
     }
 }
 
-const getData = async url => {
+const getData = async url => { // 從後端拿資料
     let res = await fetch(url);
     let data = await res.json()
     return data
 }
 
-const generateItmes = infos => {
+const updateShoppingItemNotify = () => {
+    let cartItems = JSON.parse(localStorage.getItem('cartItems'))
+    let productItems = Array.from(document.getElementsByClassName('item'));
+    productItems.map(item => {
+        let productName = item.children[1].children[0].children[0].innerText;
+        let cartItemCount = cartItems.filter(cartItem => cartItem.name === productName)[0]?.count;
+        if (cartItemCount) {
+            item.children[2].innerText = cartItemCount;
+            item.children[2].hidden = false;
+        }else{
+            item.children[2].hidden = true;
+        }
+
+    })
+}
+
+const generateItmes = infos => { // 在主頁渲染出購物品項
     infos.map(info => {
+        let tempNotify = document.createElement('p');
+        tempNotify.innerText = 0;
+        tempNotify.style.position = 'absolute';
+        tempNotify.style.top = '0px';
+        tempNotify.style.right = '0px';
+        tempNotify.style.width = '1.5rem';
+        tempNotify.style.height = '1.5rem';
+        tempNotify.style.textAlign = 'center';
+        tempNotify.style.borderRadius = '50%';
+        tempNotify.style.backgroundColor = 'red';
+        tempNotify.hidden = true;
+
+
         let tempDiv = document.createElement('div');
         tempDiv.className = 'item';
+        tempDiv.style.position = 'relative';
 
         let tempImg = document.createElement('img');
         tempImg.src = `${ApiUrl}/${info.pic_route}`
@@ -122,7 +153,7 @@ const generateItmes = infos => {
         tempInput.dataset.name = info.item;
         tempInput.dataset.price = info.price;
 
-        tempInput.addEventListener('click', e => {
+        tempInput.addEventListener('click', e => { // 綁定 加入購物車 按鈕的 點擊事件
             let currentItems = localStorage.getItem('cartItems');
             let target = {
                 name: e.target.dataset.name,
@@ -146,6 +177,8 @@ const generateItmes = infos => {
                     localStorage.setItem('cartItems', JSON.stringify(currentItems));
                 }
             }
+
+            updateShoppingItemNotify()
         })
 
 
@@ -162,37 +195,49 @@ const generateItmes = infos => {
 
         tempDiv.appendChild(tempImg);
         tempDiv.appendChild(tempDivInfo);
+        tempDiv.appendChild(tempNotify);
 
         content.appendChild(tempDiv);
     })
 
 }
 
-btnOrder.addEventListener('click', async () => {
+btnOrder.addEventListener('click', async () => { // 新增右上角購物車icon的點擊事件
 
     let btnClosed = document.getElementById('btnClosed');
 
     let receiverName = document.getElementById('receiverName').value;
     let receiverEmail = document.getElementById('receiverEmail').value;
     let receiverPhone = document.getElementById('receiverPhone').value;
+    let receiverAddress = document.getElementById('receiverAddress').value;
     let notes = document.getElementById('notes').value;
 
     let receiverNameErrorMsg = document.getElementById('nameErrorMsg');
     let receiverEmailErrorMsg = document.getElementById('emailErrorMsg');
     let receiverPhoneErrorMsg = document.getElementById('phoneErrorMsg');
+    let receiverAddressErrorMsg = document.getElementById('addressErrorMsg');
+    let allErrorMsg = document.getElementById('allErrorMsg')
 
 
     if (!receiverName) {
         receiverNameErrorMsg.innerText = '未填寫名稱';
+        allErrorMsg.hidden = false;
     }
     else if (!receiverEmail || /[^0-9a-zA-Z.]+/.test(receiverEmail)) {
         receiverNameErrorMsg.innerText = '';
         receiverEmailErrorMsg.innerText = '未填寫Email或是Email格式錯誤(請填寫email "@" 符號前面的id)';
+        allErrorMsg.hidden = false;
     } else if (!receiverPhoneErrorMsg || !/^\d{9,10}$/.test(receiverPhone)) {
         receiverEmailErrorMsg.innerText = '';
         receiverPhoneErrorMsg.innerText = '未填寫電話或是電話位數錯誤(家用電話9位;手機10位)';
-    } else {
+        allErrorMsg.hidden = false;
+    } else if (!receiverAddress) {
         receiverPhoneErrorMsg.innerText = '';
+        receiverAddressErrorMsg.innerText = '未填寫地址';
+        allErrorMsg.hidden = false;
+    } else {
+        receiverAddressErrorMsg.innerText = '';
+        allErrorMsg.hidden = true;
 
         let myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -203,6 +248,7 @@ btnOrder.addEventListener('click', async () => {
                 name: receiverName,
                 email: `${receiverEmail}@gmail.com`,
                 phone: receiverPhone,
+                address: receiverAddress,
                 notes: notes
             }
         }
@@ -235,7 +281,8 @@ cartNotify.hidden = true;
 
 getData(getItemsUrl)
     .then(res => generateItmes(res))
-    .then(() => {
+    .then(()=>updateShoppingItemNotify())
+    .then(() => { // RWD
         if (screen.width < 800) {
             let title = document.getElementsByClassName('title')[0];
             title.children[0].style.fontSize = '20px';

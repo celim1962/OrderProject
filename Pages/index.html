@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google" content="notranslate">
 
-    <title>喜福宅鮮</title>
+    <title>喜福宅鮮 || AmazingFood</title>
 
     <link rel="icon" href="./icon.png" type="image/x-icon">
 
@@ -25,21 +25,16 @@
         <i class="fa-solid fa-cart-plus" id="btnCart" data-toggle="modal" data-target="#shoppintCart"
             onclick="loadCartItems()" style="position: relative;">
 
-            <div id="cartNotify" style="width: 20px;height: 20px;color: white;position: absolute;bottom: 3vh;left:-1vw;font-size: 1rem;border-radius: 50%;background-color: red;text-align: center;">!</div>
+            <div id="cartNotify"
+                style="width: 20px;height: 20px;color: white;position: absolute;bottom: 3vh;left:-1vw;font-size: 1rem;border-radius: 50%;background-color: red;text-align: center;">
+                !</div>
         </i>
 
     </section>
 
     <section id="Home">
-        <!-- <div class="filter">
-            <p>現在就訂購想要的任何東西吧!</p>
-        </div> -->
-        <div>
-        </div>
+        <div></div>
     </section>
-
-    <!-- <section id="content">
-    </section> -->
 
     <section>
         <div id="content"></div>
@@ -86,6 +81,13 @@
                                 placeholder="XXXX-XXX-XXX or XX-XXX-XXXX">
                         </div>
 
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">您的地址:</label>
+                            <label id="addressErrorMsg" style="color:red"></label>
+                            <input type="text" class="form-control" id="receiverAddress"
+                                placeholder="XXX">
+                        </div>
+
 
                         <div class="form-group">
                             <label for="message-text" class="col-form-label">備註:</label>
@@ -93,14 +95,16 @@
                         </div>
                         <div class="form-group">
                             <label for="message-text" class="col-form-label">提醒:</label>
-                            <h6>按下"我要訂購"之後</h6>
-                            <h6>系統會自動發送訂購清單到填寫的Gmail信箱當中</h6>
+                            <h6>按下"確認訂購"之後</h6>
+                            <h6>系統會自動發送訂購清單以及匯款帳號到填寫的Gmail信箱當中</h6>
+                            <h6>並會和買家確認匯款細節後宅配到府</h6>
                             <h6>麻煩多加留意 感謝您的訂購!</h6>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="btnOrder" class="btn btn-success">我要訂購</button>
+                    <label id="allErrorMsg" style="color: red;" hidden>您尚未填寫完表格</label>
+                    <button type="button" id="btnOrder" class="btn btn-success">確認訂購</button>
                 </div>
             </div>
         </div>

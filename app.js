@@ -45,6 +45,7 @@ app.post('/notify', (req, res) => {
     })
 
     content += `------------------\n\n連絡電話: ${body.keyinfo.phone}\n`;
+    content += `地址: ${body.keyinfo.address}\n`;
     content += `備註: ${body.keyinfo.notes}\n`;
     content += `------------------\n總計金額為 $${total}\n\n感謝您的訂購，稍後門市人員會致電聯絡付款事項\n多謝!\n\nOrderProject 團隊`;
 
