@@ -109,7 +109,7 @@ const generateItmes = infos => { // 在主頁渲染出購物品項
         let tempNotify = document.createElement('p');
         tempNotify.innerText = 0;
         tempNotify.style.position = 'absolute';
-        tempNotify.style.top = '0px';
+        tempNotify.style.top = '-10px';
         tempNotify.style.right = '0px';
         tempNotify.style.width = '1.5rem';
         tempNotify.style.height = '1.5rem';
@@ -268,7 +268,7 @@ btnOrder.addEventListener('click', async () => { // 新增右上角購物車icon
             localStorage.setItem('cartItems', JSON.stringify([]));
             cartNotify.hidden = true;
             btnClosed.click()
-
+            window.location.reload()
 
         }
 
@@ -281,7 +281,6 @@ cartNotify.hidden = true;
 
 getData(getItemsUrl)
     .then(res => generateItmes(res))
-    .then(()=>updateShoppingItemNotify())
     .then(() => { // RWD
         if (screen.width < 800) {
             let title = document.getElementsByClassName('title')[0];
@@ -298,7 +297,7 @@ getData(getItemsUrl)
             Array.from(item).map(el => el.style.width = '31%');
 
         }
-    })
+    }).then(()=>updateShoppingItemNotify())
 
 
 
