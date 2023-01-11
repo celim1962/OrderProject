@@ -44,6 +44,11 @@ app.post('/notify', (req, res) => {
         total += item.price * item.count
     })
 
+    if(total<5000){
+        content += '運費: $290\n';
+        total = total+290;
+    }
+
     content += `\n總計金額為 $${total}\n`;
     content += `------------------\n`;
     content += `匯款資訊:\n`;
