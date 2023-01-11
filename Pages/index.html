@@ -23,9 +23,9 @@
     <section class="title">
         <div>
             <h1>喜福宅鮮 煙燻花枝 年節特選</h1>
-            <h6>諮詢電話:0928783218</h6>
+            <h5>諮詢電話:0928783218</h5>
         </div>
-        
+
         <i class="fa-solid fa-cart-plus" id="btnCart" data-toggle="modal" data-target="#shoppintCart"
             onclick="loadCartItems()" style="position: relative;">
 
@@ -55,7 +55,7 @@
                     </button>
                 </div>
                 <div class="modal-body" id="cartDetails"
-                    style="display: flex;flex-direction: column;justify-items: center;align-items: center;padding: 0px;">
+                    style="display: flex;flex-direction: column;justify-items: center;align-items: center;padding: 0px !important;padding-top: 5px;">
                 </div>
                 <div class="modal-footer">
                     <form style="width:100%">
@@ -88,8 +88,7 @@
                         <div class="form-group">
                             <label for="message-text" class="col-form-label">您的地址:</label>
                             <label id="addressErrorMsg" style="color:red"></label>
-                            <input type="text" class="form-control" id="receiverAddress"
-                                placeholder="XXX">
+                            <input type="text" class="form-control" id="receiverAddress" placeholder="XXX">
                         </div>
 
 
@@ -97,6 +96,29 @@
                             <label for="message-text" class="col-form-label">備註:</label>
                             <textarea class="form-control" id="notes" placeholder="..."></textarea>
                         </div>
+
+                        <div class="form-group">
+                            <label>付款方式:</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                                    value="option1" checked>
+                                <label class="form-check-label">
+                                    匯款(匯款資訊會在電子郵件中附上)
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>發貨方式:</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios2" id="exampleRadios2"
+                                    value="option1" checked>
+                                <label class="form-check-label">
+                                    宅配
+                                </label>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label for="message-text" class="col-form-label">提醒:</label>
                             <h6>按下"確認訂購"之後</h6>
