@@ -285,7 +285,7 @@ getData(getItemsUrl)
         if (screen.width < 800) {
             let title = document.getElementsByClassName('title')[0];
             title.children[0].children[0].style.fontSize = '20px';
-            title.children[0].children[1].style.fontSize = '0.2rem';
+            title.children[0].children[1].style.fontSize = '1rem';
             title.children[0].style.flexDirection = 'column';
 
             let item = document.getElementsByClassName('item');
