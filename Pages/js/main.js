@@ -109,7 +109,7 @@ const generateItmes = infos => { // 在主頁渲染出購物品項
         let tempNotify = document.createElement('p');
         tempNotify.innerText = 0;
         tempNotify.style.position = 'absolute';
-        tempNotify.style.top = '-10px';
+        tempNotify.style.top = '49%';
         tempNotify.style.right = '0px';
         tempNotify.style.width = '1.5rem';
         tempNotify.style.height = '1.5rem';
@@ -284,14 +284,16 @@ getData(getItemsUrl)
     .then(() => { // RWD
         if (screen.width < 800) {
             let title = document.getElementsByClassName('title')[0];
-            title.children[0].style.fontSize = '20px';
+            title.children[0].children[0].style.fontSize = '20px';
+            title.children[0].children[1].style.fontSize = '0.2rem';
+            title.children[0].style.flexDirection = 'column';
 
             let item = document.getElementsByClassName('item');
             Array.from(item).map(el => el.style.width = '100%')
 
         } else {
             let title = document.getElementsByClassName('title')[0];
-            title.children[0].style.fontSize = '2.5rem';
+            title.children[0].children[0].style.fontSize = '2.5rem';
 
             let item = document.getElementsByClassName('item');
             Array.from(item).map(el => el.style.width = '31%');
