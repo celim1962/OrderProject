@@ -35,8 +35,9 @@ app.post('/notify', (req, res) => {
     let total = 0;
     let body = req.body;
 
-    let content = `親愛的貴賓 ${body.keyinfo.name} 先生/小姐 您好\n`;
-    content += `您的訂購資訊如下:\n`;
+    let content = `親愛的貴賓 ${body.keyinfo.name} 先生/小姐\n`;
+    content += '非常感謝您的訂購!\n';
+    content += `以下為訂單明細：\n`;
     content += `------------------\n`;
 
     body.data.map(item => {
@@ -51,16 +52,21 @@ app.post('/notify', (req, res) => {
 
     content += `\n總計金額為 $${total}\n`;
     content += `------------------\n`;
-    content += `匯款資訊:\n`;
-    content += ` 代號:700\n`;
-    content += ` 存簿帳號:0111000 1048835\n\n`;
+    content += `匯款帳戶:\n`;
+    content += ` 代號:700 中華郵政\n`;
+    content += ` 存簿帳號:0111000 1048835\n`;
+    content += '*請在匯款明細備註您的名字\n';
+    content += '或者\n';
+    content += '*回覆此電子郵件提供匯款帳號末5碼\n\n';
     content += `連絡電話: ${body.keyinfo.phone}\n`;
     content += `寄送地址: ${body.keyinfo.address}\n`;
     content += `備註: ${body.keyinfo.notes}\n`;
     content += `------------------\n`;
-    content += `感謝您的訂購，請參照上述匯款資訊，門市會在確認匯款成功後透過宅配發貨\n`;
-    content += `多謝!\n\n`;
-    content += `喜福宅鮮 團隊`;
+    content += `包裹將會在匯款完成後三～五個工作天送出\n感謝您的支持！\n`;
+    content += ` 願 平安♡喜樂!\n\n`;
+    content += `喜福宅鮮 Fresh & Blessing\n\n`;
+
+    content += '0928783218\namazingfood7777@gmail.com';
 
     let sender = 'amazingfood7777@gmail.com';//'hungyeelin@gmail.com';
 
@@ -75,7 +81,7 @@ app.post('/notify', (req, res) => {
     const mailOptions = {
         from: process.env.sender || sender,
         to: body.keyinfo.email,
-        subject: '喜福宅鮮 訂購信件(測試用)',
+        subject: '喜福宅鮮 訂購信件',
         text: content
     };
 

@@ -73,7 +73,7 @@ const loadCartItems = () => { // 從LocalStorage取得購物車清單
         cartDetail.innerHTML += `<br/>
         <div class='cartItems'>
             <div></div>
-            <h4>小計:$${totalPrice}</h4>
+            <h4>小計:$${totalPrice}(運費另計)</h4>
         </div>
 
 
